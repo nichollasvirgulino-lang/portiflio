@@ -9,82 +9,113 @@
   />
   <title>Nichollas | Automação Industrial</title>
 
-  <!-- Script executado antes da renderização para aplicar o tema salvo sem piscar a tela -->
+  <!-- Aplica o tema salvo ou a preferência do sistema antes da renderização para evitar flashes -->
   <script>
     (function () {
-      const savedTheme = localStorage.getItem("portfolio-theme");
-      const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const theme = savedTheme || (systemPrefersDark ? "dark" : "light");
-      document.documentElement.setAttribute("data-theme", theme);
+      const savedTheme = localStorage.getItem("nichollas-portfolio-theme");
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initialTheme = savedTheme || (systemDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", initialTheme);
     })();
   </script>
 
   <style>
     /* ==========================================================================
-       1. VARIÁVEIS DE CORES E TEMAS
-       EDITAR AQUI: Altere os tons de azul e superfícies conforme sua preferência.
+       1. PALETA DE CORES E VARIÁVEIS DE TEMA
+       EDITAR AQUI: Personalize os tons de azul e os acentos vibrantes do site.
        ========================================================================== */
     :root {
-      /* Paleta Azul Principal */
-      --blue-950: #061326;
-      --blue-900: #0a2540;
-      --blue-800: #0f3a66;
+      /* Base Azul */
+      --blue-950: #040d1f;
+      --blue-900: #091d3e;
+      --blue-800: #0e3268;
       --blue-700: #0369a1;
       --blue-600: #0284c7;
+      --blue-500: #2563eb;
       --blue-400: #38bdf8;
-      --blue-300: #7dd3fc;
 
-      /* Tema Claro (Padrão) */
-      --bg-page: #f3f7fc;
+      /* Acentos Vibrantes Complementares */
+      --accent-cyan: #06b6d4;
+      --accent-teal: #10b981;
+      --accent-violet: #7c3aed;
+      --accent-orange: #f97316;
+
+      /* Tema Claro (Superfícies, Textos e Sombras com Alto Contraste) */
+      --bg-page: #f2f7ff;
       --bg-surface: #ffffff;
-      --bg-surface-alt: #e9f1fa;
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --accent: var(--blue-700);
-      --accent-hover: var(--blue-800);
-      --accent-soft: rgba(3, 105, 161, 0.1);
-      --border-color: #d5e2f0;
-      --grid-line: rgba(3, 105, 161, 0.06);
-      --shadow-sm: 0 2px 8px rgba(10, 37, 64, 0.06);
-      --shadow-md: 0 12px 28px rgba(10, 37, 64, 0.1);
+      --bg-surface-alt: #e8f1ff;
+      --bg-glass: rgba(255, 255, 255, 0.84);
+      --text-primary: #0b192c;
+      --text-secondary: #3b506b;
+      --text-muted: #5b708b;
+      --primary: #0369a1;
+      --primary-hover: #075985;
+      --primary-soft: rgba(2, 132, 199, 0.11);
+      --border-color: rgba(14, 50, 104, 0.14);
+      --border-strong: rgba(2, 132, 199, 0.35);
+      --grid-dot: rgba(3, 105, 161, 0.14);
 
-      /* Barra de Navegação Fixa (Tons de Azul) */
-      --nav-bg: rgba(10, 37, 64, 0.96);
-      --nav-border: rgba(125, 211, 252, 0.18);
+      /* Gradientes e Brilhos (Tema Claro) */
+      --hero-glow-1: rgba(6, 182, 212, 0.18);
+      --hero-glow-2: rgba(124, 58, 237, 0.13);
+      --hero-glow-3: rgba(37, 99, 235, 0.15);
+      --title-gradient: linear-gradient(120deg, #0369a1 0%, #2563eb 48%, #7c3aed 100%);
+      --btn-gradient: linear-gradient(135deg, #0284c7 0%, #2563eb 55%, #4f46e5 100%);
+      --btn-shadow: 0 10px 24px -6px rgba(37, 99, 235, 0.45);
+      --card-shadow: 0 10px 30px -10px rgba(9, 29, 62, 0.12);
+      --card-shadow-hover: 0 22px 44px -12px rgba(2, 132, 199, 0.25);
+
+      /* Barra de Navegação Fixa (Tons de Azul Profundo e Luminoso) */
+      --nav-bg: linear-gradient(135deg, rgba(6, 22, 49, 0.96) 0%, rgba(12, 45, 94, 0.95) 55%, rgba(7, 46, 82, 0.96) 100%);
+      --nav-border: rgba(56, 189, 248, 0.28);
       --nav-text: #f8fafc;
-      --nav-text-muted: #bae6fd;
+      --nav-link: #bae6fd;
 
-      /* Tipografia e Espaçamentos */
+      /* Tipografia, Tamanhos e Transições */
       --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      --nav-height: 70px;
-      --container-max: 1120px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --transition: 0.25s ease;
-    }
-
-    /* Tema Escuro */
-    [data-theme="dark"] {
-      --bg-page: #071120;
-      --bg-surface: #0d1c33;
-      --bg-surface-alt: #132644;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --accent: var(--blue-400);
-      --accent-hover: var(--blue-300);
-      --accent-soft: rgba(56, 189, 248, 0.12);
-      --border-color: #1e3557;
-      --grid-line: rgba(56, 189, 248, 0.05);
-      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 14px 32px rgba(0, 0, 0, 0.45);
-
-      --nav-bg: rgba(6, 19, 38, 0.96);
-      --nav-border: rgba(56, 189, 248, 0.2);
+      --nav-height: 74px;
+      --container-max: 1160px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --transition: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     /* ==========================================================================
-       2. RESET E ACESSIBILIDADE BASE
+       TEMA ESCURO
+       ========================================================================== */
+    [data-theme="dark"] {
+      --bg-page: #050d1d;
+      --bg-surface: #0b1931;
+      --bg-surface-alt: #081327;
+      --bg-glass: rgba(11, 25, 49, 0.82);
+      --text-primary: #f1f6fc;
+      --text-secondary: #a8bdd8;
+      --text-muted: #7e96b5;
+      --primary: #38bdf8;
+      --primary-hover: #7dd3fc;
+      --primary-soft: rgba(56, 189, 248, 0.14);
+      --border-color: rgba(56, 189, 248, 0.16);
+      --border-strong: rgba(56, 189, 248, 0.42);
+      --grid-dot: rgba(56, 189, 248, 0.16);
+
+      /* Gradientes e Brilhos (Tema Escuro) */
+      --hero-glow-1: rgba(6, 182, 212, 0.22);
+      --hero-glow-2: rgba(124, 58, 237, 0.22);
+      --hero-glow-3: rgba(16, 185, 129, 0.14);
+      --title-gradient: linear-gradient(120deg, #38bdf8 0%, #22d3ee 45%, #a78bfa 100%);
+      --btn-gradient: linear-gradient(135deg, #0284c7 0%, #06b6d4 52%, #6366f1 100%);
+      --btn-shadow: 0 10px 28px -6px rgba(6, 182, 212, 0.42);
+      --card-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.55);
+      --card-shadow-hover: 0 24px 48px -12px rgba(6, 182, 212, 0.28);
+
+      --nav-bg: linear-gradient(135deg, rgba(4, 13, 31, 0.96) 0%, rgba(10, 34, 72, 0.95) 55%, rgba(7, 36, 66, 0.96) 100%);
+      --nav-border: rgba(56, 189, 248, 0.24);
+    }
+
+    /* ==========================================================================
+       2. RESET E ACESSIBILIDADE
        ========================================================================== */
     *,
     *::before,
@@ -104,15 +135,16 @@
       background-color: var(--bg-page);
       color: var(--text-primary);
       line-height: 1.65;
+      overflow-x: hidden;
       transition: background-color var(--transition), color var(--transition);
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Foco visível para navegação por teclado */
+    /* Foco altamente visível para navegação via teclado */
     :focus-visible {
-      outline: 3px solid var(--accent);
+      outline: 3px solid var(--accent-cyan);
       outline-offset: 3px;
-      border-radius: 4px;
+      border-radius: 6px;
     }
 
     img {
@@ -136,16 +168,15 @@
       padding: 0 1.5rem;
     }
 
-    /* Link para pular direto ao conteúdo principal */
     .skip-link {
       position: absolute;
-      top: -100px;
+      top: -120px;
       left: 1rem;
-      background: var(--blue-600);
+      background: var(--btn-gradient);
       color: #ffffff;
-      padding: 0.6rem 1rem;
-      border-radius: var(--radius-md);
-      font-weight: 600;
+      padding: 0.7rem 1.15rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
       z-index: 2000;
       transition: top 0.2s ease;
     }
@@ -155,7 +186,7 @@
     }
 
     /* ==========================================================================
-       3. CABEÇALHO E NAVEGAÇÃO FIXA (TONS DE AZUL)
+       3. MENU DE NAVEGAÇÃO FIXO (TONS DE AZUL)
        ========================================================================== */
     .navbar {
       position: fixed;
@@ -165,8 +196,9 @@
       height: var(--nav-height);
       background: var(--nav-bg);
       border-bottom: 1px solid var(--nav-border);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(4, 13, 31, 0.28);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 1000;
     }
 
@@ -181,10 +213,10 @@
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.75rem;
       color: var(--nav-text);
-      font-weight: 700;
-      font-size: 1.15rem;
+      font-weight: 800;
+      font-size: 1.22rem;
       letter-spacing: -0.02em;
     }
 
@@ -192,15 +224,16 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
-      border: 1px solid rgba(125, 211, 252, 0.35);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #06b6d4 0%, #2563eb 60%, #7c3aed 100%);
+      box-shadow: 0 0 16px rgba(6, 182, 212, 0.45);
       color: #ffffff;
       font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
     }
 
     .nav-actions {
@@ -212,14 +245,14 @@
     .nav-menu {
       display: flex;
       align-items: center;
-      gap: 1.75rem;
+      gap: 1.85rem;
     }
 
     .nav-menu a {
-      color: var(--nav-text-muted);
-      font-size: 0.95rem;
-      font-weight: 500;
-      padding: 0.35rem 0;
+      color: var(--nav-link);
+      font-size: 0.96rem;
+      font-weight: 600;
+      padding: 0.4rem 0;
       position: relative;
       transition: color var(--transition);
     }
@@ -230,59 +263,62 @@
       left: 0;
       bottom: 0;
       width: 0;
-      height: 2px;
-      background-color: var(--blue-400);
+      height: 2.5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #22d3ee, #38bdf8, #a78bfa);
       transition: width var(--transition);
     }
 
     .nav-menu a:hover,
     .nav-menu a:focus-visible {
-      color: var(--nav-text);
+      color: #ffffff;
     }
 
     .nav-menu a:hover::after {
       width: 100%;
     }
 
-    /* Botão de alternância de tema */
+    /* Botão de alternância de tema claro/escuro */
     .theme-toggle {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--nav-text);
-      border: 1px solid rgba(125, 211, 252, 0.28);
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.14);
+      color: #ffffff;
+      border: 1px solid rgba(125, 211, 252, 0.36);
       border-radius: 999px;
-      padding: 0.42rem 0.85rem;
+      padding: 0.46rem 0.95rem;
       font-family: var(--font-sans);
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-size: 0.86rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color var(--transition), border-color var(--transition);
+      transition: background-color var(--transition), border-color var(--transition), transform 0.2s ease;
     }
 
     .theme-toggle:hover {
-      background: rgba(56, 189, 248, 0.18);
-      border-color: var(--blue-400);
+      background: rgba(6, 182, 212, 0.28);
+      border-color: #22d3ee;
+      transform: translateY(-1px);
     }
 
     .theme-toggle svg {
       width: 16px;
       height: 16px;
+      color: #38bdf8;
       flex-shrink: 0;
     }
 
-    /* Botão hambúrguer (Mobile) */
+    /* Botão colapsável mobile */
     .menu-toggle {
       display: none;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(125, 211, 252, 0.28);
-      border-radius: 8px;
-      color: var(--nav-text);
+      width: 42px;
+      height: 42px;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(125, 211, 252, 0.36);
+      border-radius: 10px;
+      color: #ffffff;
       cursor: pointer;
     }
 
@@ -292,155 +328,288 @@
     }
 
     /* ==========================================================================
-       4. SEÇÃO DE APRESENTAÇÃO (HERO)
+       4. SEÇÃO DE APRESENTAÇÃO (HERO CRIATIVO E TÉCNICO)
        ========================================================================== */
     .hero {
+      position: relative;
       padding-top: calc(var(--nav-height) + 4.5rem);
-      padding-bottom: 5rem;
-      background-image:
-        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-      background-size: 36px 36px;
+      padding-bottom: 5.5rem;
+      background-image: radial-gradient(var(--grid-dot) 1.3px, transparent 1.3px);
+      background-size: 28px 28px;
       border-bottom: 1px solid var(--border-color);
+      overflow: hidden;
     }
 
-    .hero__content {
-      max-width: 780px;
+    /* Brilhos atmosféricos coloridos ao fundo */
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(85px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero::before {
+      width: 460px;
+      height: 460px;
+      top: 40px;
+      left: -120px;
+      background: radial-gradient(circle, var(--hero-glow-1), var(--hero-glow-3));
+    }
+
+    .hero::after {
+      width: 440px;
+      height: 440px;
+      bottom: -80px;
+      right: -100px;
+      background: radial-gradient(circle, var(--hero-glow-2), var(--hero-glow-1));
+    }
+
+    .hero__grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.2fr 0.85fr;
+      align-items: center;
+      gap: 3rem;
     }
 
     .hero__eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
+      gap: 0.6rem;
       font-family: var(--font-mono);
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--accent);
-      background: var(--accent-soft);
-      border: 1px solid var(--border-color);
-      padding: 0.35rem 0.85rem;
+      color: var(--primary);
+      background: var(--bg-glass);
+      border: 1px solid var(--border-strong);
+      padding: 0.42rem 0.95rem;
       border-radius: 999px;
       margin-bottom: 1.4rem;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.12);
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
+    .status-pulse {
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      background-color: var(--blue-600);
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.22);
-    }
-
-    [data-theme="dark"] .status-dot {
-      background-color: var(--blue-400);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22);
+      background-color: var(--accent-teal);
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
     }
 
     .hero__title {
-      font-size: clamp(2.4rem, 5.5vw, 3.75rem);
-      font-weight: 800;
-      line-height: 1.12;
+      font-size: clamp(2.6rem, 5.4vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
       letter-spacing: -0.03em;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
     }
 
-    .hero__title span {
-      color: var(--accent);
+    .hero__name-highlight {
+      background: var(--title-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
     }
 
     .hero__subtitle {
-      font-size: clamp(1.15rem, 2.4vw, 1.45rem);
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 1.35rem;
+      font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
     }
 
     .hero__description {
       font-size: 1.06rem;
       color: var(--text-secondary);
-      max-width: 65ch;
+      max-width: 62ch;
       margin-bottom: 2.1rem;
     }
 
-    .hero__cta-group {
+    .hero__actions {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 2.75rem;
+      margin-bottom: 2.4rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.55rem;
-      padding: 0.8rem 1.45rem;
+      gap: 0.6rem;
+      padding: 0.88rem 1.65rem;
       border-radius: var(--radius-md);
-      font-weight: 600;
-      font-size: 0.96rem;
+      font-weight: 700;
+      font-size: 0.98rem;
       cursor: pointer;
-      transition: transform 0.2s ease, background-color var(--transition), border-color var(--transition), box-shadow var(--transition);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background-color var(--transition);
     }
 
     .btn:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     .btn--primary {
-      background-color: var(--blue-700);
+      background: var(--btn-gradient);
       color: #ffffff;
-      border: 1px solid transparent;
-      box-shadow: var(--shadow-sm);
+      border: none;
+      box-shadow: var(--btn-shadow);
     }
 
     .btn--primary:hover {
-      background-color: var(--blue-800);
-    }
-
-    [data-theme="dark"] .btn--primary {
-      background-color: var(--blue-600);
-      color: #ffffff;
-    }
-
-    [data-theme="dark"] .btn--primary:hover {
-      background-color: var(--blue-700);
+      box-shadow: 0 14px 32px -6px rgba(6, 182, 212, 0.55);
     }
 
     .btn--secondary {
-      background-color: var(--bg-surface);
+      background: var(--bg-surface);
       color: var(--text-primary);
-      border: 1px solid var(--border-color);
+      border: 1.5px solid var(--border-strong);
+      box-shadow: var(--card-shadow);
     }
 
     .btn--secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      border-color: var(--accent-cyan);
+      color: var(--primary);
     }
 
-    /* Faixa de competências técnicas */
-    .tech-highlights {
+    /* Selos coloridos de especialidades */
+    .hero__badges {
       display: flex;
       flex-wrap: wrap;
       gap: 0.65rem;
     }
 
-    .tech-pill {
+    .skill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
       font-family: var(--font-mono);
       font-size: 0.82rem;
-      color: var(--text-secondary);
+      font-weight: 600;
+      color: var(--text-primary);
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(9, 29, 62, 0.05);
+    }
+
+    .skill-badge__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* Painel Visual Decorativo de Telemetria / CLP no Hero */
+    .telemetry-panel {
+      background: linear-gradient(160deg, #091d3e 0%, #0d2b5c 55%, #11244d 100%);
+      color: #f1f6fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow:
+        0 24px 54px -12px rgba(6, 22, 49, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .telemetry-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #06b6d4, #10b981, #3b82f6, #8b5cf6, #f97316);
+    }
+
+    .telemetry-panel__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      margin-bottom: 1.15rem;
+      border-bottom: 1px solid rgba(125, 211, 252, 0.18);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .telemetry-panel__status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .telemetry-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .metric-box {
+      background: rgba(5, 13, 29, 0.55);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 12px;
+      padding: 0.85rem;
+    }
+
+    .metric-box__label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #93c5fd;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-box__value {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .metric-box__value--cyan { color: #22d3ee; }
+    .metric-box__value--teal { color: #34d399; }
+    .metric-box__value--violet { color: #c4b5fd; }
+    .metric-box__value--orange { color: #fb923c; }
+
+    .ladder-diagram {
+      background: rgba(5, 13, 29, 0.65);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 12px;
+      padding: 0.9rem;
+    }
+
+    .ladder-diagram__caption {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #bae6fd;
+      margin-bottom: 0.5rem;
     }
 
     /* ==========================================================================
-       5. SEÇÕES GENÉRICAS (ESTRUTURA EXTENSÍVEL)
+       5. ESTRUTURA DE SEÇÕES EXTENSÍVEL
        ========================================================================== */
     .section {
-      padding: 5rem 0;
+      padding: 5.5rem 0;
+      position: relative;
     }
 
     .section--alt {
@@ -454,73 +623,117 @@
       flex-wrap: wrap;
       align-items: flex-end;
       justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 2.75rem;
+      gap: 1.25rem;
+      margin-bottom: 3rem;
     }
 
-    .section__label {
-      display: block;
+    .section__eyebrow {
+      display: inline-block;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 0.4rem;
+      color: var(--primary);
+      margin-bottom: 0.45rem;
     }
 
     .section__title {
-      font-size: clamp(1.75rem, 3vw, 2.25rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: clamp(1.85rem, 3.2vw, 2.45rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
     }
 
     .section__subtitle {
       color: var(--text-secondary);
-      max-width: 60ch;
-      margin-top: 0.5rem;
+      max-width: 62ch;
+      margin-top: 0.55rem;
+      font-size: 1.03rem;
     }
 
     .project-counter {
       font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--accent);
-      background: var(--accent-soft);
-      border: 1px solid var(--border-color);
-      padding: 0.35rem 0.8rem;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--btn-gradient);
+      padding: 0.45rem 1rem;
       border-radius: 999px;
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);
     }
 
     /* ==========================================================================
-       6. GRADE E CARDS DE PROJETOS (RENDERIZADOS VIA JAVASCRIPT)
+       6. CARDS DE PROJETOS (COLORIDOS, COM PROFUNDIDADE E HOVER EXPRESSIVO)
        ========================================================================== */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 2rem;
     }
 
     .project-card {
+      --card-accent: #0284c7;
+      --card-gradient: linear-gradient(135deg, #0369a1 0%, #06b6d4 100%);
+      --card-tag-bg: rgba(6, 182, 212, 0.12);
+      --card-tag-text: #0369a1;
+
       display: flex;
       flex-direction: column;
-      background-color: var(--bg-surface);
+      background: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--card-shadow);
+      position: relative;
       transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     }
 
+    /* Variações cromáticas automáticas para cada card */
+    .project-card[data-accent="cyan"] {
+      --card-accent: #06b6d4;
+      --card-gradient: linear-gradient(135deg, #075985 0%, #0284c7 50%, #06b6d4 100%);
+      --card-tag-bg: rgba(6, 182, 212, 0.13);
+      --card-tag-text: #0369a1;
+    }
+
+    .project-card[data-accent="violet"] {
+      --card-accent: #7c3aed;
+      --card-gradient: linear-gradient(135deg, #1e3a8a 0%, #4f46e5 52%, #7c3aed 100%);
+      --card-tag-bg: rgba(124, 58, 237, 0.12);
+      --card-tag-text: #5b21b6;
+    }
+
+    .project-card[data-accent="teal"] {
+      --card-accent: #10b981;
+      --card-gradient: linear-gradient(135deg, #064e3b 0%, #0d9488 52%, #0284c7 100%);
+      --card-tag-bg: rgba(16, 185, 129, 0.13);
+      --card-tag-text: #047857;
+    }
+
+    .project-card[data-accent="orange"] {
+      --card-accent: #f97316;
+      --card-gradient: linear-gradient(135deg, #0c2d5e 0%, #1d4ed8 55%, #ea580c 100%);
+      --card-tag-bg: rgba(249, 115, 22, 0.13);
+      --card-tag-text: #c2410c;
+    }
+
+    /* Ajuste de contraste das tags no tema escuro */
+    [data-theme="dark"] .project-card[data-accent="cyan"] { --card-tag-text: #38bdf8; }
+    [data-theme="dark"] .project-card[data-accent="violet"] { --card-tag-text: #c4b5fd; }
+    [data-theme="dark"] .project-card[data-accent="teal"] { --card-tag-text: #34d399; }
+    [data-theme="dark"] .project-card[data-accent="orange"] { --card-tag-text: #fb923c; }
+
     .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--accent);
+      transform: translateY(-7px);
+      border-color: var(--card-accent);
+      box-shadow: var(--card-shadow-hover);
     }
 
     .project-card__media {
       position: relative;
       aspect-ratio: 16 / 9;
-      background: linear-gradient(135deg, var(--blue-900), var(--blue-700));
+      background: var(--card-gradient);
       overflow: hidden;
       border-bottom: 1px solid var(--border-color);
     }
@@ -529,118 +742,135 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      transition: transform 0.45s ease;
     }
 
     .project-card:hover .project-card__media img {
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
 
-    /* Ilustração técnica exibida automaticamente quando o projeto ainda não tem foto */
-    .project-card__placeholder {
+    /* Ilustração SVG técnica quando ainda não há imagem cadastrada */
+    .project-card__art {
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      color: #e0f2fe;
-      padding: 1rem;
-      text-align: center;
+      gap: 0.6rem;
+      padding: 1.25rem;
+      color: #ffffff;
+      position: relative;
+      background-image:
+        radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.18) 0%, transparent 45%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 100% 100%, 22px 22px, 22px 22px;
     }
 
-    .project-card__placeholder svg {
-      width: 44px;
-      height: 44px;
-      opacity: 0.9;
+    .project-card__art svg {
+      width: 52px;
+      height: 52px;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
+      transition: transform var(--transition);
     }
 
-    .project-card__placeholder span {
+    .project-card:hover .project-card__art svg {
+      transform: scale(1.08);
+    }
+
+    .project-card__art-label {
       font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      opacity: 0.85;
+      background: rgba(4, 13, 31, 0.35);
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .project-card__category {
       position: absolute;
-      top: 0.75rem;
-      left: 0.75rem;
-      background: rgba(6, 19, 38, 0.85);
-      color: #7dd3fc;
-      border: 1px solid rgba(125, 211, 252, 0.3);
+      top: 0.85rem;
+      left: 0.85rem;
+      background: rgba(4, 13, 31, 0.82);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.26);
       font-family: var(--font-mono);
-      font-size: 0.74rem;
-      font-weight: 600;
-      padding: 0.25rem 0.65rem;
-      border-radius: 6px;
-      backdrop-filter: blur(4px);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.28rem 0.75rem;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
     }
 
     .project-card__body {
       display: flex;
       flex-direction: column;
       flex: 1;
-      padding: 1.5rem;
+      padding: 1.65rem;
     }
 
     .project-card__title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      line-height: 1.35;
-      margin-bottom: 0.65rem;
+      font-size: 1.24rem;
+      font-weight: 800;
+      line-height: 1.32;
+      margin-bottom: 0.7rem;
       color: var(--text-primary);
     }
 
     .project-card__desc {
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       color: var(--text-secondary);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.35rem;
       flex: 1;
     }
 
     .project-card__tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-bottom: 1.35rem;
+      gap: 0.5rem;
+      margin-bottom: 1.45rem;
     }
 
     .tag {
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--accent-soft);
-      padding: 0.25rem 0.6rem;
-      border-radius: 5px;
+      font-size: 0.77rem;
+      font-weight: 700;
+      color: var(--card-tag-text);
+      background: var(--card-tag-bg);
+      padding: 0.28rem 0.68rem;
+      border-radius: 6px;
     }
 
     .project-card__footer {
-      padding-top: 1rem;
+      padding-top: 1.05rem;
       border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .project-card__link {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--accent);
+      gap: 0.5rem;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--primary);
       transition: color var(--transition), gap var(--transition);
     }
 
     .project-card__link:hover {
-      color: var(--accent-hover);
-      gap: 0.7rem;
+      color: var(--primary-hover);
+      gap: 0.78rem;
     }
 
     .project-card__link svg {
-      width: 16px;
-      height: 16px;
+      width: 17px;
+      height: 17px;
     }
 
     /* ==========================================================================
@@ -648,57 +878,71 @@
        ========================================================================== */
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
     }
 
     .contact-card {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.1rem;
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 1.25rem 1.35rem;
-      box-shadow: var(--shadow-sm);
+      padding: 1.4rem 1.5rem;
+      box-shadow: var(--card-shadow);
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
     .contact-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent);
-      box-shadow: var(--shadow-md);
+      transform: translateY(-5px);
+      border-color: var(--accent-cyan);
+      box-shadow: var(--card-shadow-hover);
     }
 
     .contact-card__icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: var(--accent-soft);
-      color: var(--accent);
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      color: #ffffff;
       flex-shrink: 0;
+      box-shadow: 0 8px 18px -4px rgba(2, 132, 199, 0.35);
+    }
+
+    .contact-card__icon--email {
+      background: linear-gradient(135deg, #0284c7, #06b6d4);
+    }
+
+    .contact-card__icon--linkedin {
+      background: linear-gradient(135deg, #1d4ed8, #6366f1);
+    }
+
+    .contact-card__icon--github {
+      background: linear-gradient(135deg, #0f766e, #10b981);
     }
 
     .contact-card__icon svg {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
     }
 
     .contact-card__label {
       display: block;
-      font-size: 0.8rem;
       font-family: var(--font-mono);
-      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.15rem;
     }
 
     .contact-card__value {
-      font-weight: 600;
-      font-size: 0.98rem;
+      font-weight: 700;
+      font-size: 1rem;
       color: var(--text-primary);
       word-break: break-word;
     }
@@ -707,10 +951,10 @@
        8. RODAPÉ DISCRETO
        ========================================================================== */
     .footer {
-      padding: 2rem 0;
+      padding: 2.25rem 0;
       border-top: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
     .footer__inner {
@@ -726,8 +970,8 @@
        ========================================================================== */
     .reveal {
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      transform: translateY(22px);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .reveal.is-visible {
@@ -748,14 +992,27 @@
 
       .btn,
       .project-card,
-      .contact-card {
+      .contact-card,
+      .project-card__media img,
+      .project-card__art svg {
         transition: none;
       }
     }
 
     /* ==========================================================================
-       10. RESPONSIVIDADE (MOBILE E TABLET)
+       10. RESPONSIVIDADE (TABLET E MOBILE)
        ========================================================================== */
+    @media (max-width: 960px) {
+      .hero__grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .telemetry-panel {
+        max-width: 540px;
+      }
+    }
+
     @media (max-width: 768px) {
       .menu-toggle {
         display: inline-flex;
@@ -771,11 +1028,11 @@
         gap: 0;
         background: var(--nav-bg);
         border-bottom: 1px solid var(--nav-border);
-        padding: 0.75rem 1.5rem 1.25rem;
+        padding: 0.75rem 1.5rem 1.35rem;
         transform: translateY(-120%);
         opacity: 0;
         visibility: hidden;
-        transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s ease;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
       }
 
       .nav-menu.is-open {
@@ -791,8 +1048,8 @@
       .nav-menu a {
         display: block;
         width: 100%;
-        padding: 0.75rem 0;
-        border-bottom: 1px solid rgba(125, 211, 252, 0.1);
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(125, 211, 252, 0.14);
       }
 
       .nav-menu li:last-child a {
@@ -805,11 +1062,11 @@
 
       .hero {
         padding-top: calc(var(--nav-height) + 3rem);
-        padding-bottom: 3.5rem;
+        padding-bottom: 4rem;
       }
 
       .section {
-        padding: 3.75rem 0;
+        padding: 4rem 0;
       }
 
       .projects-grid {
@@ -823,12 +1080,12 @@
 
   <!-- ========================================================================
        NAVEGAÇÃO FIXA
-       EDITAR AQUI: Para adicionar novas seções no futuro, inclua um novo <li>
-       apontando para o id da seção correspondente (ex: #certificacoes).
+       EDITAR AQUI: Para adicionar novas seções no futuro, basta criar a nova
+       <section id="nova-secao"> no <main> e adicionar um <li> correspondente aqui.
        ======================================================================== -->
   <header class="navbar">
     <div class="container navbar__inner">
-      <a href="#inicio" class="brand" aria-label="Nichollas - Página inicial">
+      <a href="#inicio" class="brand" aria-label="Nichollas - Início">
         <span class="brand__badge" aria-hidden="true">PLC</span>
         <span>Nichollas</span>
       </a>
@@ -861,7 +1118,7 @@
           aria-expanded="false"
           aria-controls="nav-menu"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -873,32 +1130,37 @@
 
   <main id="conteudo-principal">
     <!-- ======================================================================
-         SEÇÃO DE APRESENTAÇÃO
-         EDITAR AQUI: Atualize o subtítulo, a descrição profissional e as
-         competências principais em destaque.
+         SEÇÃO DE APRESENTAÇÃO (HERO)
+         EDITAR AQUI: Atualize o subtítulo, a descrição profissional e os selos
+         técnicos com suas especialidades.
          ====================================================================== -->
     <section id="inicio" class="hero">
-      <div class="container">
-        <div class="hero__content reveal">
+      <div class="container hero__grid">
+        <div class="reveal">
           <p class="hero__eyebrow">
-            <span class="status-dot" aria-hidden="true"></span>
-            Engenharia &amp; Tecnologia em Automação Industrial
+            <span class="status-pulse" aria-hidden="true"></span>
+            Automação Industrial &amp; Controle de Processos
           </p>
 
-          <h1 class="hero__title">Olá, eu sou <span>Nichollas</span></h1>
-          <p class="hero__subtitle">Especialista em Controle de Processos, CLPs e Sistemas Supervisórios</p>
+          <h1 class="hero__title">
+            Olá, eu sou <span class="hero__name-highlight">Nichollas</span>
+          </h1>
+
+          <p class="hero__subtitle">
+            Engenharia e Tecnologia em Automação Industrial, CLPs, SCADA e Redes de Campo
+          </p>
 
           <p class="hero__description">
-            Desenvolvo soluções de automação industrial voltadas à confiabilidade operacional,
-            eficiência energética e integração de chão de fábrica. Experiência na programação de
-            controladores lógicos, desenvolvimento de interfaces IHM/SCADA, comissionamento e
-            diagnóstico de redes industriais.
+            Projeto e implemento soluções de automação industrial focadas em confiabilidade,
+            segurança operacional e eficiência de processos. Atuação no desenvolvimento de lógica
+            em CLPs, telas supervisórias IHM/SCADA, integração de sensores e comissionamento de
+            sistemas industriais.
           </p>
 
-          <div class="hero__cta-group">
+          <div class="hero__actions">
             <a href="#projetos" class="btn btn--primary">
-              Ver Projetos
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              Explorar Projetos
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
@@ -906,31 +1168,104 @@
             <a href="#contato" class="btn btn--secondary">Entrar em Contato</a>
           </div>
 
-          <ul class="tech-highlights" aria-label="Principais competências técnicas">
-            <li class="tech-pill">CLP / PLC</li>
-            <li class="tech-pill">Ladder &amp; Texto Estruturado</li>
-            <li class="tech-pill">SCADA &amp; IHM</li>
-            <li class="tech-pill">Profinet / Modbus / OPC UA</li>
-            <li class="tech-pill">Inversores &amp; Instrumentação</li>
+          <ul class="hero__badges" aria-label="Principais competências técnicas">
+            <li class="skill-badge">
+              <span class="skill-badge__dot" style="background:#06b6d4" aria-hidden="true"></span>
+              CLP / PLC
+            </li>
+            <li class="skill-badge">
+              <span class="skill-badge__dot" style="background:#3b82f6" aria-hidden="true"></span>
+              Ladder &amp; Texto Estruturado
+            </li>
+            <li class="skill-badge">
+              <span class="skill-badge__dot" style="background:#10b981" aria-hidden="true"></span>
+              SCADA &amp; IHM
+            </li>
+            <li class="skill-badge">
+              <span class="skill-badge__dot" style="background:#8b5cf6" aria-hidden="true"></span>
+              Profinet / Modbus / OPC UA
+            </li>
+            <li class="skill-badge">
+              <span class="skill-badge__dot" style="background:#f97316" aria-hidden="true"></span>
+              Inversores &amp; Instrumentação
+            </li>
           </ul>
         </div>
+
+        <!-- Painel ilustrativo de arquitetura industrial (decorativo) -->
+        <aside class="telemetry-panel reveal" aria-label="Resumo visual de sistemas industriais">
+          <div class="telemetry-panel__header">
+            <span>SYS // AUTOMATION_CORE</span>
+            <span class="telemetry-panel__status">
+              <span class="status-pulse" aria-hidden="true"></span>
+              CPU RUN
+            </span>
+          </div>
+
+          <div class="telemetry-metrics">
+            <div class="metric-box">
+              <span class="metric-box__label">Controle Lógico</span>
+              <span class="metric-box__value metric-box__value--cyan">CLP / IHM</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-box__label">Supervisão</span>
+              <span class="metric-box__value metric-box__value--teal">SCADA RT</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-box__label">Barramento</span>
+              <span class="metric-box__value metric-box__value--violet">PROFINET</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-box__label">Acionamento</span>
+              <span class="metric-box__value metric-box__value--orange">VFD / PID</span>
+            </div>
+          </div>
+
+          <div class="ladder-diagram" aria-hidden="true">
+            <div class="ladder-diagram__caption">
+              <span>NETWORK_01: INTERLOCK_OK</span>
+              <span>SCAN: 1.4ms</span>
+            </div>
+            <svg viewBox="0 0 340 74" width="100%" height="74" fill="none">
+              <line x1="12" y1="8" x2="12" y2="66" stroke="#38bdf8" stroke-width="2.5" />
+              <line x1="328" y1="8" x2="328" y2="66" stroke="#38bdf8" stroke-width="2.5" />
+              <!-- Linha 1 Ladder -->
+              <line x1="12" y1="24" x2="64" y2="24" stroke="#22d3ee" stroke-width="2" />
+              <line x1="64" y1="15" x2="64" y2="33" stroke="#22d3ee" stroke-width="2.2" />
+              <line x1="76" y1="15" x2="76" y2="33" stroke="#22d3ee" stroke-width="2.2" />
+              <line x1="76" y1="24" x2="145" y2="24" stroke="#22d3ee" stroke-width="2" />
+              <line x1="145" y1="15" x2="145" y2="33" stroke="#34d399" stroke-width="2.2" />
+              <line x1="157" y1="15" x2="157" y2="33" stroke="#34d399" stroke-width="2.2" />
+              <line x1="157" y1="24" x2="262" y2="24" stroke="#34d399" stroke-width="2" />
+              <circle cx="276" cy="24" r="11" stroke="#fb923c" stroke-width="2.2" />
+              <line x1="287" y1="24" x2="328" y2="24" stroke="#fb923c" stroke-width="2" />
+              <!-- Linha 2 Selo -->
+              <line x1="36" y1="24" x2="36" y2="52" stroke="#818cf8" stroke-width="1.8" />
+              <line x1="36" y1="52" x2="64" y2="52" stroke="#818cf8" stroke-width="1.8" />
+              <line x1="64" y1="44" x2="64" y2="60" stroke="#818cf8" stroke-width="2" />
+              <line x1="76" y1="44" x2="76" y2="60" stroke="#818cf8" stroke-width="2" />
+              <line x1="76" y1="52" x2="112" y2="52" stroke="#818cf8" stroke-width="1.8" />
+              <line x1="112" y1="52" x2="112" y2="24" stroke="#818cf8" stroke-width="1.8" />
+            </svg>
+          </div>
+        </aside>
       </div>
     </section>
 
     <!-- ======================================================================
          SEÇÃO DE PROJETOS
-         Os cards abaixo são gerados automaticamente pelo array PROJECTS no
-         bloco <script> ao final deste arquivo.
+         Os cards são gerados automaticamente a partir do array PROJECTS no
+         <script> ao final desta página.
          ====================================================================== -->
     <section id="projetos" class="section section--alt">
       <div class="container">
         <div class="section__header reveal">
           <div>
-            <span class="section__label">Portfólio Técnico</span>
+            <span class="section__eyebrow">Portfólio Técnico</span>
             <h2 class="section__title">Projetos de Automação Industrial</h2>
             <p class="section__subtitle">
-              Aplicações desenvolvidas envolvendo lógica de controle, supervisão em tempo real,
-              integração de sensores e modernização de máquinas.
+              Soluções desenvolvidas em programação de controladores, supervisão em tempo real,
+              redes industriais e modernização de máquinas e processos.
             </p>
           </div>
           <span id="project-counter" class="project-counter" aria-live="polite"></span>
@@ -942,17 +1277,17 @@
 
     <!-- ======================================================================
          SEÇÃO DE CONTATO
-         EDITAR AQUI: Substitua os links e textos pelos seus dados reais de
-         e-mail, LinkedIn e GitHub.
+         EDITAR AQUI: Substitua os links e textos pelos seus contatos reais.
          ====================================================================== -->
     <section id="contato" class="section">
       <div class="container">
         <div class="section__header reveal">
           <div>
-            <span class="section__label">Conexões &amp; Oportunidades</span>
+            <span class="section__eyebrow">Vamos Conversar</span>
             <h2 class="section__title">Contato</h2>
             <p class="section__subtitle">
-              Aberto a conversas técnicas, projetos de automação e oportunidades na área industrial.
+              Disponível para troca de experiências técnicas, projetos de automação e novas
+              oportunidades profissionais.
             </p>
           </div>
         </div>
@@ -960,7 +1295,7 @@
         <div class="contact-grid reveal">
           <!-- E-mail -->
           <a href="mailto:nichollas.automacao@exemplo.com" class="contact-card">
-            <div class="contact-card__icon" aria-hidden="true">
+            <div class="contact-card__icon contact-card__icon--email" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
@@ -979,7 +1314,7 @@
             rel="noopener noreferrer"
             class="contact-card"
           >
-            <div class="contact-card__icon" aria-hidden="true">
+            <div class="contact-card__icon contact-card__icon--linkedin" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                 <rect x="2" y="9" width="4" height="12"></rect>
@@ -999,7 +1334,7 @@
             rel="noopener noreferrer"
             class="contact-card"
           >
-            <div class="contact-card__icon" aria-hidden="true">
+            <div class="contact-card__icon contact-card__icon--github" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
                 <path d="M9 18c-4.51 2-5-2-7-2"></path>
@@ -1021,79 +1356,84 @@
   <footer class="footer">
     <div class="container footer__inner">
       <p>&copy; <span id="current-year"></span> Nichollas — Automação Industrial.</p>
-      <p>Desenvolvido com HTML, CSS e JavaScript.</p>
+      <p>Portfólio Técnico &bull; Engenharia de Controle e Automação</p>
     </div>
   </footer>
 
   <!-- ========================================================================
-       JAVASCRIPT (DADOS DOS PROJETOS, TEMA, MENU E ANIMAÇÕES)
+       JAVASCRIPT (DADOS DOS PROJETOS, RENDERIZAÇÃO, TEMA E INTERATIVIDADE)
        ======================================================================== -->
   <script>
     /* ========================================================================
-       EDITAR AQUI: LISTA DE PROJETOS
-       Para adicionar um novo projeto, copie um dos blocos { ... } abaixo,
-       cole dentro do array PROJECTS e preencha os campos:
+       EDITAR AQUI: ARRAY DE PROJETOS
+       Para incluir um novo projeto, copie um objeto { ... } abaixo, cole no
+       array PROJECTS e preencha os campos:
        - titulo: Nome do projeto
-       - categoria: Área principal (ex: "CLP & SCADA", "IHM", "Redes Industriais")
-       - descricao: Resumo técnico do problema resolvido e resultados
-       - tecnologias: Lista de ferramentas, protocolos ou linguagens usadas
-       - imagem: Caminho da imagem (ex: "img/projeto1.png") ou URL.
-                 Deixe "" para exibir automaticamente o ícone técnico padrão.
-       - altImagem: Descrição acessível da imagem para leitores de tela
-       - link: URL para repositório GitHub, vídeo demonstrativo ou documentação
-       - textoLink: Texto exibido no botão/link do card
+       - categoria: Área técnica (ex: "CLP & IHM", "SCADA", "Redes Industriais")
+       - descricao: Resumo claro do desafio técnico, solução e resultados
+       - tecnologias: Lista de tecnologias usadas (CLP, Ladder, SCADA, etc.)
+       - imagem: Caminho local (ex: "img/painel.jpg") ou URL da imagem.
+                 Deixe "" para usar a ilustração técnica colorida automática.
+       - altImagem: Texto alternativo descrevendo a imagem (acessibilidade)
+       - link: Link para repositório GitHub, vídeo ou documentação do projeto
+       - textoLink: Texto exibido no link do card
+       - corDestaque: (Opcional) "cyan", "violet", "teal" ou "orange". Se não
+                      informar, o sistema alterna as cores automaticamente.
        ======================================================================== */
     const PROJECTS = [
       {
-        titulo: "Automação de Linha de Envase e Esteiras",
+        titulo: "Automação de Linha de Envase e Transporte Industrial",
         categoria: "CLP & IHM",
         descricao:
-          "Desenvolvimento de lógica sequencial em Ladder para controle de esteiras transportadoras, sensores fotoelétricos, válvulas pneumáticas e contagem de produção com diagnóstico de falhas em IHM.",
+          "Programação em Ladder e blocos funcionais para sincronismo de esteiras, sensores fotoelétricos, atuadores pneumáticos e interface IHM com diagnóstico rápido de falhas e contagem de produção.",
         tecnologias: ["CLP Siemens", "TIA Portal", "Ladder", "IHM", "Sensores Industriais"],
         imagem: "",
-        altImagem: "Diagrama do sistema de automação da linha de envase",
+        altImagem: "Tela de operação IHM e lógica de controle da linha de envase",
         link: "https://github.com/seu-usuario-github",
-        textoLink: "Ver detalhes do projeto"
+        textoLink: "Ver projeto no GitHub",
+        corDestaque: "cyan"
       },
       {
         titulo: "Sistema Supervisório SCADA para Estação de Bombeamento",
-        categoria: "SCADA & Telemetria",
+        categoria: "SCADA & Controle PID",
         descricao:
-          "Monitoramento em tempo real de pressão, vazão e nível de reservatórios, com acionamento alternado de bombas via inversores de frequência, registro histórico de alarmes e relatórios operacionais.",
-        tecnologias: ["SCADA", "Modbus RTU/TCP", "Inversor de Frequência", "PID", "Alarmes"],
+          "Supervisão em tempo real de pressão, nível e vazão com controle PID, rodízio automático de motobombas via inversores de frequência, histórico de alarmes e relatórios operacionais.",
+        tecnologias: ["SCADA", "Modbus TCP/RTU", "Controle PID", "Inversor de Frequência", "Alarmes"],
         imagem: "",
-        altImagem: "Tela do sistema supervisório SCADA da estação de bombeamento",
+        altImagem: "Interface supervisória SCADA da estação de bombeamento",
         link: "https://github.com/seu-usuario-github",
-        textoLink: "Ver detalhes do projeto"
+        textoLink: "Ver detalhes técnicos",
+        corDestaque: "teal"
       },
       {
-        titulo: "Retrofit de Painel Elétrico e Rede Profinet",
+        titulo: "Retrofit de Painel de Comando e Rede Profinet",
         categoria: "Redes Industriais",
         descricao:
-          "Modernização de painel de comando legado com substituição de relés por CLP modular, integração de remotas de I/O distribuídas em rede Profinet e redução de tempo de parada para manutenção.",
-        tecnologias: ["Profinet", "I/O Remota", "Esquemas Elétricos", "Comissionamento", "CLP"],
+          "Modernização de máquina industrial com substituição de lógica a relés por CLP modular, integração de remotas de I/O distribuídas em Profinet e redução de paradas corretivas.",
+        tecnologias: ["Profinet", "I/O Remota", "CLP", "Diagramas Elétricos", "Comissionamento"],
         imagem: "",
-        altImagem: "Painel elétrico modernizado com comunicação Profinet",
+        altImagem: "Arquitetura de rede Profinet e painel elétrico modernizado",
         link: "https://github.com/seu-usuario-github",
-        textoLink: "Ver detalhes do projeto"
+        textoLink: "Ver documentação",
+        corDestaque: "violet"
       }
     ];
 
     /* ========================================================================
-       RENDERIZAÇÃO DINÂMICA DOS PROJETOS
+       RENDERIZAÇÃO AUTOMÁTICA DOS CARDS DE PROJETOS
        ======================================================================== */
-    function createPlaceholderMarkup(category) {
+    const ACCENT_PALETTE = ["cyan", "teal", "violet", "orange"];
+
+    function createTechnicalArtwork(category) {
       return `
-        <div class="project-card__placeholder" role="img" aria-label="Ilustração técnica: ${category}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
-            <line x1="7" y1="9" x2="7" y2="15"></line>
-            <line x1="17" y1="9" x2="17" y2="15"></line>
-            <line x1="7" y1="12" x2="10" y2="12"></line>
-            <line x1="14" y1="12" x2="17" y2="12"></line>
-            <rect x="10" y="9.5" width="4" height="5" rx="0.5"></rect>
+        <div class="project-card__art" role="img" aria-label="Ilustração técnica: ${category || "Automação Industrial"}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+            <polyline points="6 11 9 8 12 12 15 7 18 10"></polyline>
           </svg>
-          <span>${category}</span>
+          <span class="project-card__art-label">${category || "Automação"}</span>
         </div>
       `;
     }
@@ -1104,34 +1444,37 @@
       if (!grid) return;
 
       if (counter) {
-        const total = PROJECTS.length;
-        counter.textContent = `${String(total).padStart(2, "0")} ${total === 1 ? "Projeto" : "Projetos"}`;
+        const count = PROJECTS.length;
+        counter.textContent = `${String(count).padStart(2, "0")} ${count === 1 ? "Projeto" : "Projetos"}`;
       }
 
       grid.innerHTML = "";
 
-      PROJECTS.forEach((project) => {
-        const article = document.createElement("article");
-        article.className = "project-card reveal";
+      PROJECTS.forEach((project, index) => {
+        const accent = project.corDestaque || ACCENT_PALETTE[index % ACCENT_PALETTE.length];
 
-        const mediaContainer = document.createElement("div");
-        mediaContainer.className = "project-card__media";
+        const card = document.createElement("article");
+        card.className = "project-card reveal";
+        card.setAttribute("data-accent", accent);
+
+        const media = document.createElement("div");
+        media.className = "project-card__media";
 
         if (project.imagem && project.imagem.trim() !== "") {
           const img = document.createElement("img");
           img.src = project.imagem;
-          img.alt = project.altImagem || `Imagem do projeto ${project.titulo}`;
+          img.alt = project.altImagem || `Imagem ilustrativa do projeto ${project.titulo}`;
           img.loading = "lazy";
           img.onerror = function () {
-            mediaContainer.innerHTML = createPlaceholderMarkup(project.categoria || "Automação");
-            appendCategoryBadge(mediaContainer, project.categoria);
+            media.innerHTML = createTechnicalArtwork(project.categoria);
+            appendCategoryPill(media, project.categoria);
           };
-          mediaContainer.appendChild(img);
+          media.appendChild(img);
         } else {
-          mediaContainer.innerHTML = createPlaceholderMarkup(project.categoria || "Automação");
+          media.innerHTML = createTechnicalArtwork(project.categoria);
         }
 
-        appendCategoryBadge(mediaContainer, project.categoria);
+        appendCategoryPill(media, project.categoria);
 
         const body = document.createElement("div");
         body.className = "project-card__body";
@@ -1140,19 +1483,19 @@
         title.className = "project-card__title";
         title.textContent = project.titulo;
 
-        const desc = document.createElement("p");
-        desc.className = "project-card__desc";
-        desc.textContent = project.descricao;
+        const description = document.createElement("p");
+        description.className = "project-card__desc";
+        description.textContent = project.descricao;
 
-        const tagsList = document.createElement("ul");
-        tagsList.className = "project-card__tags";
-        tagsList.setAttribute("aria-label", "Tecnologias utilizadas");
+        const tags = document.createElement("ul");
+        tags.className = "project-card__tags";
+        tags.setAttribute("aria-label", "Tecnologias utilizadas");
 
         (project.tecnologias || []).forEach((tech) => {
-          const li = document.createElement("li");
-          li.className = "tag";
-          li.textContent = tech;
-          tagsList.appendChild(li);
+          const tagItem = document.createElement("li");
+          tagItem.className = "tag";
+          tagItem.textContent = tech;
+          tags.appendChild(tagItem);
         });
 
         const footer = document.createElement("div");
@@ -1165,8 +1508,8 @@
           link.target = "_blank";
           link.rel = "noopener noreferrer";
           link.innerHTML = `
-            <span>${project.textoLink || "Acessar projeto"}</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <span>${project.textoLink || "Ver projeto"}</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
               <polyline points="15 3 21 3 21 9"></polyline>
               <line x1="10" y1="14" x2="21" y2="3"></line>
@@ -1175,75 +1518,75 @@
           footer.appendChild(link);
         }
 
-        body.append(title, desc, tagsList, footer);
-        article.append(mediaContainer, body);
-        grid.appendChild(article);
+        body.append(title, description, tags, footer);
+        card.append(media, body);
+        grid.appendChild(card);
       });
     }
 
-    function appendCategoryBadge(container, category) {
+    function appendCategoryPill(container, category) {
       if (!category) return;
-      const badge = document.createElement("span");
-      badge.className = "project-card__category";
-      badge.textContent = category;
-      container.appendChild(badge);
+      const pill = document.createElement("span");
+      pill.className = "project-card__category";
+      pill.textContent = category;
+      container.appendChild(pill);
     }
 
     /* ========================================================================
-       CONTROLE DE TEMA CLARO / ESCURO
+       ALTERNÂNCIA DE TEMA CLARO / ESCURO (COM LOCALSTORAGE E PREFERS-COLOR-SCHEME)
        ======================================================================== */
-    function setupThemeToggle() {
+    function setupTheme() {
       const toggleBtn = document.getElementById("theme-toggle");
-      const iconSpan = document.getElementById("theme-icon");
-      const labelSpan = document.getElementById("theme-label");
+      const iconContainer = document.getElementById("theme-icon");
+      const labelContainer = document.getElementById("theme-label");
 
-      const sunIcon = `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      const sunSVG = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
         </svg>
       `;
 
-      const moonIcon = `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      const moonSVG = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
       `;
 
-      function updateUI(theme) {
+      function syncButton(theme) {
         const isDark = theme === "dark";
-        iconSpan.innerHTML = isDark ? sunIcon : moonIcon;
-        labelSpan.textContent = isDark ? "Claro" : "Escuro";
+        iconContainer.innerHTML = isDark ? sunSVG : moonSVG;
+        labelContainer.textContent = isDark ? "Claro" : "Escuro";
         toggleBtn.setAttribute("aria-pressed", String(isDark));
         toggleBtn.setAttribute(
           "aria-label",
-          isDark ? "Ativar tema claro" : "Ativar tema escuro"
+          isDark ? "Mudar para tema claro" : "Mudar para tema escuro"
         );
       }
 
-      const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
-      updateUI(currentTheme);
+      const activeTheme = document.documentElement.getAttribute("data-theme") || "light";
+      syncButton(activeTheme);
 
       toggleBtn.addEventListener("click", () => {
-        const activeTheme = document.documentElement.getAttribute("data-theme");
-        const nextTheme = activeTheme === "dark" ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", nextTheme);
-        localStorage.setItem("portfolio-theme", nextTheme);
-        updateUI(nextTheme);
+        const current = document.documentElement.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("nichollas-portfolio-theme", next);
+        syncButton(next);
       });
 
-      // Atualiza automaticamente se o usuário mudar o tema do sistema operacional e não tiver salvo preferência manual
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-        if (!localStorage.getItem("portfolio-theme")) {
-          const systemTheme = event.matches ? "dark" : "light";
+      // Acompanha mudanças do sistema operacional caso o usuário ainda não tenha escolhido manualmente
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+        if (!localStorage.getItem("nichollas-portfolio-theme")) {
+          const systemTheme = e.matches ? "dark" : "light";
           document.documentElement.setAttribute("data-theme", systemTheme);
-          updateUI(systemTheme);
+          syncButton(systemTheme);
         }
       });
     }
 
     /* ========================================================================
-       MENU RESPONSIVO COLAPSÁVEL (MOBILE)
+       MENU RESPONSIVO COLAPSÁVEL NO CELULAR
        ======================================================================== */
     function setupMobileMenu() {
       const menuBtn = document.getElementById("menu-toggle");
@@ -1257,11 +1600,11 @@
       }
 
       menuBtn.addEventListener("click", () => {
-        const isOpen = navMenu.classList.toggle("is-open");
-        menuBtn.setAttribute("aria-expanded", String(isOpen));
+        const opened = navMenu.classList.toggle("is-open");
+        menuBtn.setAttribute("aria-expanded", String(opened));
         menuBtn.setAttribute(
           "aria-label",
-          isOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"
+          opened ? "Fechar menu de navegação" : "Abrir menu de navegação"
         );
       });
 
@@ -1278,13 +1621,13 @@
     }
 
     /* ========================================================================
-       ANIMAÇÕES SUTIS DE ENTRADA AO ROLAR (INTERSECTION OBSERVER)
+       ANIMAÇÕES DE ENTRADA AO ROLAR A PÁGINA
        ======================================================================== */
     function setupScrollReveal() {
-      const elements = document.querySelectorAll(".reveal");
+      const revealItems = document.querySelectorAll(".reveal");
 
       if (!("IntersectionObserver" in window)) {
-        elements.forEach((el) => el.classList.add("is-visible"));
+        revealItems.forEach((el) => el.classList.add("is-visible"));
         return;
       }
 
@@ -1300,16 +1643,16 @@
         { threshold: 0.12 }
       );
 
-      elements.forEach((el) => observer.observe(el));
+      revealItems.forEach((el) => observer.observe(el));
     }
 
     /* ========================================================================
-       INICIALIZAÇÃO DA PÁGINA
+       INICIALIZAÇÃO
        ======================================================================== */
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("current-year").textContent = new Date().getFullYear();
       renderProjects();
-      setupThemeToggle();
+      setupTheme();
       setupMobileMenu();
       setupScrollReveal();
     });
